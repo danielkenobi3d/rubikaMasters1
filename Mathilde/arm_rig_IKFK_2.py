@@ -4,16 +4,18 @@ import pymel.core as pm
 # Creating the FK
 def arm_rig_FK(*locators):
     joints_list_FK = []
+    control_list=[]
+
     pm.select(clear=True)
     for each_locator in locators :
         new_joint = pm.joint()
         pm.matchTransform(new_joint, each_locator)
         joints_list_FK.append(new_joint)
         pm.makeIdentity(new_joint, apply=True, translate=True, rotate=True, scale=True)
-
-    #Call the create_control functions
-    controls_FK = create_control(joints_list_FK)
-    pm.parentConstraint(controls_FK,joints_list_FK)
+        control, make_nurb_circle=pm.circle(normal=[1,0,0])
+        control_list.append(control)
+        pm.matchTransform(control, new_joint)
+        pm.parentConstraint(control,new_joint)
 
 # Creating the output
 def arm_rig_output(*locators):
@@ -73,4 +75,3 @@ arm_rig_FK(*locator_list)
 arm_rig_output(*locator_list)
 
 pm.parentConstraint()
-
