@@ -9,15 +9,13 @@ def create_ik_joints():
 
     return ik_handle
 
-create_ik_joints()
+
 
 def create_fk_joints():
+    pm.select(clear=True)
     fk_joint1=pm.joint(name='fk_joint1', position=(5,10,0))
     fk_joint2=pm.joint(name='fk_joint2', position=(5,5,5))
     fk_joint3=pm.joint(name='fk_joint3', position=(5,1,1))
-
-create_fk_joints()
-
 def create_control_on_transform(maya_node):
     control, create_circle = pm.circle(name='reset_control')
     reset_control = pm.group(empty=True, name='reset_control')
@@ -50,6 +48,8 @@ def constraint_nodes(source_list, destination_list):
         reverse_node.outputX >> weight_alias[1]
 
 
+create_ik_joints()
+create_fk_joints()
 ik_joints_list = pm.ls('ik_joint*')
 fk_joints_list = pm.ls('fk_joint*')
 constraint_nodes(ik_joints_list, fk_joints_list)
