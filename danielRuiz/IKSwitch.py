@@ -1,4 +1,8 @@
 import pymel.core as pm
+#    Homework
+#  fix the orientation of the joints, They are flipping because there is no angle at the begginning
+#  There is no control for the IK control
+# Remove the driven key and do a direct connection
 
 
 def create_arm_rig():
@@ -32,9 +36,9 @@ def create_arm_rig():
     pm.addAttr(shoulder_ctrl, ln='IK_FK_Switch', at='double', min=0, max=1, dv=0, k=True)
 
     # Set up constraints
-    pm.parentConstraint(shoulder_ctrl + '.IK_FK_Switch', shoulder_joint, mo=True)
-    pm.parentConstraint(elbow_ctrl + '.IK_FK_Switch', elbow_joint, mo=True)
-    pm.parentConstraint(wrist_ctrl + '.IK_FK_Switch', wrist_joint, mo=True)
+    pm.parentConstraint(shoulder_ctrl, shoulder_joint, mo=True)
+    pm.parentConstraint(elbow_ctrl, elbow_joint, mo=True)
+    pm.parentConstraint(wrist_ctrl, wrist_joint, mo=True)
 
     # Set driven key for IK/FK switch
     pm.setDrivenKeyframe(ik_handle + '.ikBlend', cd=shoulder_ctrl + '.IK_FK_Switch', dv=0, v=1)

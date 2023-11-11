@@ -1,7 +1,7 @@
 import pymel.core as pm
 
-ik_joint1 = pm.joint(name='ik_joint1'，position=(0,10,0))
-ik_joint2 = pm.joint(name='ik_joint2'，position=(0,5,5))
+ik_joint1 = pm.joint(name='ik_joint1'，position=(0,10,0) )
+ik_joint2 = pm.joint(name='ik_joint2'，position=(0,5,5) )
 ik_end_effector = pm.joint(name='ik_end_effector'，position=(0,1,1))
 
 fk_joint1 = pm.joint(name='fk_joint1')
