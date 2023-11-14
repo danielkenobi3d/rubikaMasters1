@@ -89,6 +89,7 @@ def constraint_nodes(source_list, destination_list):
     for source, destination in zip(source_list, destination_list):
         output = pm.joint(name='output')
         pm.parentConstraint(source, output, mo=False)
+
         parent_constraint_node = pm.parentConstraint(destination, output, mo=False)
         parent_constraints_list.append(parent_constraint_node)
         weight_alias = parent_constraint_node.getWeightAliasList()
