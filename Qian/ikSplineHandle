@@ -20,4 +20,3 @@ translate_node.operation.set(2)
 
 for joint in joint_chain:
     pm.connectAttr(translate_node + '.outputX', joint + '.translateX')
-
