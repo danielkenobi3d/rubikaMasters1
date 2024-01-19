@@ -1,6 +1,7 @@
 import pymel.core as pm
 num_joints = 5
 
+pm.select(clear=True)
 joints = []
 for i in range(num_joints):
     joint_name = "joint_{0}".format(i + 1)
@@ -14,8 +15,10 @@ curve_info = pm.arclen('curve1', ch=True)
 
 multiply_divide_node = pm.createNode('multiplyDivide')
 pm.connectAttr(curve_info.arcLength, multiply_divide_node.input1X)
+multiply_divide_node.input2X.set(len(joints) - 1)
 multiply_divide_node.operation.set(2)
 
-multiply_divide_node.outputX >> joints[0].tx
-multiply_divide_node.outputX >> joints[-1].tx
+for each_joint in joints[1:]:
+    multiply_divide_node.outputX >> each_joint.tx
+
 
