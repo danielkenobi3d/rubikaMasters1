@@ -1,7 +1,7 @@
 import pymel.core as pm
 
 pm.select(d=True)
-joint_positions = [(0, 0, i * 2) for i in range(8)]
+joint_positions = [( i * 2, 0, 0) for i in range(8)]
 joint_chain = [pm.joint(p=position) for position in joint_positions]
 
 curve1 = pm.curve( ep=[(0, 0, 0), (1, 0, 4), (-2, 0, 10), (1, 0, 14),(0, 0, 20), (1, 0, 24)])
