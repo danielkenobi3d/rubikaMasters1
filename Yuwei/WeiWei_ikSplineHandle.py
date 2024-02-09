@@ -1,6 +1,7 @@
 import pymel.core as pm
 
 pm.select(d=True)
+joints = []
 pm.joint(n='IKS_Joint01_Start', p=(0,0,0))
 pm.joint(n='IKS_Joint02',p=(0,0,4))
 pm.joint(n='IKS_Joint03',p=(0,0,8))
@@ -16,15 +17,16 @@ pm.ikHandle(n='ikHandleSpline',
             ccv=False,
             curve='IKS_Curve')
 
-pm.createNode('curveInfo')
+curve_info = pm.createNode('curveInfo')
 pm.connectAttr('IKS_CurveShape.ws[0]','curveInfo1.inputCurve')
 
-pm.createNode('multiplyDivide')
-#pm.connectAttr('curveInfo.arcLength','multiplyDivide.input1X')
-pm.setAttr('multiplyDivide.input2X',5)
-multiplyDivide.operation.set(2)
-
-pm.connectAttr('multiplyDivide.outputX','IKS_Joint01_Start.translateX')
+multiply_divide = pm.createNode('multiplyDivide')
+pm.connectAttr(curve_info.arcLength, multiply_divide.input1X)
+# pm.setAttr(multiply_divide.input2X, 5)
+multiply_divide.input2X.set(5)
+multiply_divide.operation.set(2)
+for each_joint in ['IKS_Joint02', 'IKS_Joint03', 'IKS_Joint04','IKS_Joint05', 'IKS_Joint06_End']:
+    pm.connectAttr(multiply_divide.outputX, f'{each_joint}.translateZ')
 
 #Question: What is ikSplineHandleCtx?
 #if pm.ikSplineHandleCtx('ik Spline HandleCtx', q=True, ex=True):
